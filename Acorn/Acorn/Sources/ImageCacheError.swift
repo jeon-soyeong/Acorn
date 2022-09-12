@@ -12,10 +12,10 @@ enum ImageCacheError: Error {
     case invalidFileDirectoryURL
     case invalidFileURL
     case failedData
-    case failedDownloadImage
+    case failedDownloadImageData
     case failedSaveDataToDisk
     case failedReadDataFromDisk
-    
+
     public var description: String {
         switch self {
         case .invalidFileName:
@@ -26,8 +26,8 @@ enum ImageCacheError: Error {
             return "invalid FileURL"
         case .failedData:
             return "fail to handle Data"
-        case .failedDownloadImage:
-            return "fail to download Image"
+        case .failedDownloadImageData:
+            return "fail to download ImageData"
         case .failedSaveDataToDisk:
             return "Fail to save data"
         case .failedReadDataFromDisk:

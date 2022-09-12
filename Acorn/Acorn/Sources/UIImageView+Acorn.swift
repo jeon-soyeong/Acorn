@@ -9,15 +9,29 @@ import Foundation
 import UIKit
 
 extension UIImageView {
-    public func setImage(with url: String) {
+    @discardableResult
+    public func setImage(with url: String?, placeholder: UIImage? = nil) -> URLSessionDataTask? {
         let imageCacheManager = ImageCacheManager.shared
+        var dataTask: URLSessionDataTask?
+
+        guard let url = url else {
+            self.image = placeholder
+            return nil
+        }
         
-        imageCacheManager.readCachedImageData(key: url) { [weak self] cachedData in
-            DispatchQueue.main.async {
-                if let cachedImageData = cachedData?.imageData {
-                    self?.image = UIImage(data: cachedImageData)
+        guard let cachedData = imageCacheManager.readCachedImageData(key: url) else {
+            self.image = placeholder
+            dataTask = imageCacheManager.downloadImageData(key: url) { [weak self] cachedData in
+                DispatchQueue.main.async {
+                    print("downloadImage complete")
+                    if let cachedImageData = cachedData?.imageData {
+                        self?.image = UIImage(data: cachedImageData)
+                    }
                 }
             }
+            return dataTask
         }
+        self.image = UIImage(data: cachedData.imageData)
+        return dataTask
     }
 }

@@ -13,60 +13,55 @@ public class ImageCacheManager: NSObject {
     private let memoryCache = MemoryCache.shared
     private let diskCache = DiskCache.shared
     var dataTask: URLSessionDataTask?
-    
+
     override init() {
         super.init()
         setupNotification()
     }
-    
+
     deinit {
         //TODO: // background, diskWarning 추가
         NotificationCenter.default.removeObserver(self, name: .memoryWarning, object: nil)
     }
-    
-    public func readCachedImageData(key: String, completionHandler: @escaping (CachedImage?) -> Void) {
-        //memory
-        var cachedImage: CachedImage?
-        if let memoryCachedImageData = readMemoryCachedImageData(with: key) {
-            print("momory!!")
-            cachedImage = memoryCachedImageData
-            completionHandler(cachedImage)
-            return
-        }
-        
-        //disk
-        if let diskCachedImageData = readDiskCachedImageData(with: key) {
+
+    public func readCachedImageData(key: String) -> CachedImage? {
+        guard let memoryCachedImageData = readMemoryCachedImageData(with: key) else {
+            guard let diskCachedImageData = readDiskCachedImageData(with: key) else {
+                return nil
+            }
             print("disk!!")
-            cachedImage = diskCachedImageData
-            completionHandler(cachedImage)
-            return
+            return diskCachedImageData
         }
-        
-        //download
-       downloadImage(url: key) { downloadImage in
-           guard let downloadImage = downloadImage else {
-               print(ImageCacheError.failedDownloadImage.description)
+        print("momory!!")
+        return memoryCachedImageData
+    }
+
+    public func downloadImageData(key: String, completionHandler: @escaping (CachedImage?) -> Void) -> URLSessionDataTask? {
+        let dataTask = downloadImageData(url: key) { downloadImageData in
+           guard let downloadImageData = downloadImageData else {
+               print(ImageCacheError.failedDownloadImageData.description)
                return
            }
-           cachedImage = downloadImage
-           print("downloadImage: \(downloadImage.imageData)")
-           completionHandler(cachedImage)
-           return
+           print("downloadImageData: \(downloadImageData.imageData)")
+           completionHandler(downloadImageData)
         }
+
+        return dataTask
     }
-    
+
     public func configureCacheMemory() {
         memoryCache.configureCacheMemory()
     }
-    
+
     public func cancelImageDownloadTask() {
         dataTask?.cancel()
+        dataTask = nil
     }
-    
+
     private func readMemoryCachedImageData(with key: String) -> CachedImage? {
         return memoryCache.read(with: key)
     }
-    
+
     private func readDiskCachedImageData(with key: String) -> CachedImage? {
         let cachedImage = diskCache.read(with: key)
         if let cachedImage = cachedImage {
@@ -74,7 +69,7 @@ public class ImageCacheManager: NSObject {
         }
         return cachedImage
     }
-    
+
     private func saveMemoryCachedImageData(data: CachedImage, with key: String) {
         print("saveMemoryCachedImageData")
         memoryCache.save(data: data, with: key)
@@ -84,9 +79,8 @@ public class ImageCacheManager: NSObject {
         print("saveDiskCachedImageData")
         diskCache.save(data: data, with: key)
     }
-    
-    private func downloadImage(url: String, completionHandler: @escaping (CachedImage?) -> Void) {
-//        self.image = UIImage()
+
+    private func downloadImageData(url: String, completionHandler: @escaping (CachedImage?) -> Void) -> URLSessionDataTask? {
         if let imageUrl = URL(string: url) {
             dataTask = URLSession.shared.dataTask(with: imageUrl) { [weak self] (data, response, error) in
                 guard let data = data else {
@@ -99,17 +93,18 @@ public class ImageCacheManager: NSObject {
             }
             dataTask?.resume()
         }
+        return dataTask
     }
-    
+
     private func setupNotification() {
         //TODO: // background, diskWarning 추가
         NotificationCenter.default.addObserver(self, selector: #selector(clearMemoryCache), name: .memoryWarning, object: nil)
     }
-    
+
     @objc private func clearMemoryCache() {
         MemoryCache.shared.clearMemoryCache()
     }
-    
+
     @objc private func clearDiskCache() {
         DiskCache.shared.clearDiskCache()
     }
