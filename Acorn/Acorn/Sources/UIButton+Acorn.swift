@@ -12,8 +12,12 @@ extension UIButton {
     public func setImage(with url: String) {
         let imageCacheManager = ImageCacheManager.shared
         
-        if let cachedData = imageCacheManager.readCachedImageData(key: url) {
-            self.setImage(UIImage(data: cachedData.imageData), for: .normal)
+        imageCacheManager.readCachedImageData(key: url) { [weak self] cachedData in
+            DispatchQueue.main.async {
+                if let cachedImageData = cachedData?.imageData {
+                    self?.setImage(UIImage(data: cachedImageData), for: .normal)
+                }
+            }
         }
     }
 }

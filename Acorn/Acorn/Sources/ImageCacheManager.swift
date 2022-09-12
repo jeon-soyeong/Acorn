@@ -24,20 +24,22 @@ public class ImageCacheManager: NSObject {
         NotificationCenter.default.removeObserver(self, name: .memoryWarning, object: nil)
     }
     
-    public func readCachedImageData(key: String) -> CachedImage? {
+    public func readCachedImageData(key: String, completionHandler: @escaping (CachedImage?) -> Void) {
         //memory
         var cachedImage: CachedImage?
         if let memoryCachedImageData = readMemoryCachedImageData(with: key) {
-            cachedImage = memoryCachedImageData
             print("momory!!")
-            return cachedImage
+            cachedImage = memoryCachedImageData
+            completionHandler(cachedImage)
+            return
         }
         
         //disk
         if let diskCachedImageData = readDiskCachedImageData(with: key) {
-            cachedImage = diskCachedImageData
             print("disk!!")
-            return cachedImage
+            cachedImage = diskCachedImageData
+            completionHandler(cachedImage)
+            return
         }
         
         //download
@@ -47,9 +49,10 @@ public class ImageCacheManager: NSObject {
                return
            }
            cachedImage = downloadImage
-           print("download!!")
+           print("downloadImage: \(downloadImage.imageData)")
+           completionHandler(cachedImage)
+           return
         }
-        return cachedImage
     }
     
     public func configureCacheMemory() {

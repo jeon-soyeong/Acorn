@@ -13,8 +13,8 @@ enum ImageCacheError: Error {
     case invalidFileURL
     case failedData
     case failedDownloadImage
-    case failedWriteDataToDisk
-    case failedLoadDataFromDisk
+    case failedSaveDataToDisk
+    case failedReadDataFromDisk
     
     public var description: String {
         switch self {
@@ -28,10 +28,10 @@ enum ImageCacheError: Error {
             return "fail to handle Data"
         case .failedDownloadImage:
             return "fail to download Image"
-        case .failedWriteDataToDisk:
-            return "Fail to write data"
-        case .failedLoadDataFromDisk:
-            return "Fail to load data"
+        case .failedSaveDataToDisk:
+            return "Fail to save data"
+        case .failedReadDataFromDisk:
+            return "Fail to read data"
         }
     }
 }

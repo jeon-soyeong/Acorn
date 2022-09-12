@@ -12,8 +12,12 @@ extension UIImageView {
     public func setImage(with url: String) {
         let imageCacheManager = ImageCacheManager.shared
         
-        if let cachedData = imageCacheManager.readCachedImageData(key: url) {
-            self.image = UIImage(data: cachedData.imageData)
+        imageCacheManager.readCachedImageData(key: url) { [weak self] cachedData in
+            DispatchQueue.main.async {
+                if let cachedImageData = cachedData?.imageData {
+                    self?.image = UIImage(data: cachedImageData)
+                }
+            }
         }
     }
 }

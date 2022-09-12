@@ -24,7 +24,7 @@ class DiskCache {
             return nil
         }
         guard let imageData = try? Data(contentsOf: fileURL) else {
-            print(ImageCacheError.failedLoadDataFromDisk.description)
+            print(ImageCacheError.failedReadDataFromDisk.description)
             return nil
         }
         return CachedImage(imageData: imageData)
@@ -38,7 +38,7 @@ class DiskCache {
         do {
             try data.imageData.write(to: fileURL)
         } catch {
-            print(ImageCacheError.failedWriteDataToDisk.description)
+            print(ImageCacheError.failedSaveDataToDisk.description)
             return
         }
     }
@@ -60,7 +60,7 @@ class DiskCache {
     }
     
     private func getFileURL(key: String) -> URL? {
-        guard let fileName = URL(string: key)?.lastPathComponent else {
+        guard let fileName = key.components(separatedBy: "/").last else {
             print(ImageCacheError.invalidFileName.description)
             return nil
         }
