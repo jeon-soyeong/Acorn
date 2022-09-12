@@ -10,14 +10,13 @@
 		9B71ABE428CA2E3A005ED247 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */; };
 		9B71ABE628CA2E3A005ED247 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */; };
 		9B71ABE828CA2E3A005ED247 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE728CA2E3A005ED247 /* ViewController.swift */; };
-		9B71ABEB28CA2E3A005ED247 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B71ABE928CA2E3A005ED247 /* Main.storyboard */; };
 		9B71ABED28CA2E3E005ED247 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B71ABEC28CA2E3E005ED247 /* Assets.xcassets */; };
-		9B71ABF028CA2E3E005ED247 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B71ABEE28CA2E3E005ED247 /* LaunchScreen.storyboard */; };
 		9B71ABFB28CA2E3E005ED247 /* AcornDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABFA28CA2E3E005ED247 /* AcornDemoTests.swift */; };
 		9B71AC0528CA2E3E005ED247 /* AcornDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC0428CA2E3E005ED247 /* AcornDemoUITests.swift */; };
 		9B71AC0728CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC0628CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift */; };
 		9B71AC3C28CA30F2005ED247 /* Acorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B71AC3B28CA30F2005ED247 /* Acorn.framework */; };
 		9B71AC3D28CA30F2005ED247 /* Acorn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B71AC3B28CA30F2005ED247 /* Acorn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9B71AC4828CC45E8005ED247 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC4728CC45E8005ED247 /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,9 +55,7 @@
 		9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9B71ABE728CA2E3A005ED247 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9B71ABEA28CA2E3A005ED247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B71ABEC28CA2E3E005ED247 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9B71ABEF28CA2E3E005ED247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B71ABF128CA2E3E005ED247 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B71ABF628CA2E3E005ED247 /* AcornDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AcornDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71ABFA28CA2E3E005ED247 /* AcornDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornDemoTests.swift; sourceTree = "<group>"; };
@@ -66,6 +63,7 @@
 		9B71AC0428CA2E3E005ED247 /* AcornDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornDemoUITests.swift; sourceTree = "<group>"; };
 		9B71AC0628CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9B71AC3B28CA30F2005ED247 /* Acorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Acorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B71AC4728CC45E8005ED247 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,9 +119,8 @@
 				9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */,
 				9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */,
 				9B71ABE728CA2E3A005ED247 /* ViewController.swift */,
-				9B71ABE928CA2E3A005ED247 /* Main.storyboard */,
+				9B71AC4728CC45E8005ED247 /* CollectionViewCell.swift */,
 				9B71ABEC28CA2E3E005ED247 /* Assets.xcassets */,
-				9B71ABEE28CA2E3E005ED247 /* LaunchScreen.storyboard */,
 				9B71ABF128CA2E3E005ED247 /* Info.plist */,
 			);
 			path = AcornDemo;
@@ -259,9 +256,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B71ABF028CA2E3E005ED247 /* LaunchScreen.storyboard in Resources */,
 				9B71ABED28CA2E3E005ED247 /* Assets.xcassets in Resources */,
-				9B71ABEB28CA2E3A005ED247 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +283,7 @@
 			files = (
 				9B71ABE828CA2E3A005ED247 /* ViewController.swift in Sources */,
 				9B71ABE428CA2E3A005ED247 /* AppDelegate.swift in Sources */,
+				9B71AC4828CC45E8005ED247 /* CollectionViewCell.swift in Sources */,
 				9B71ABE628CA2E3A005ED247 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,25 +319,6 @@
 			targetProxy = 9B71AC0128CA2E3E005ED247 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		9B71ABE928CA2E3A005ED247 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9B71ABEA28CA2E3A005ED247 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9B71ABEE28CA2E3E005ED247 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9B71ABEF28CA2E3E005ED247 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9B71AC0828CA2E3E005ED247 /* Debug */ = {
@@ -472,7 +449,6 @@
 				INFOPLIST_FILE = AcornDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -500,7 +476,6 @@
 				INFOPLIST_FILE = AcornDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
