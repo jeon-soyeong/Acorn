@@ -76,6 +76,7 @@ class DiskCache {
             print(ImageCacheError.invalidFileDirectoryURL.description)
             return nil
         }
-        return fileDirectoryURL.appendingPathComponent(fileName)
+        let currentTime = String(Date().timeIntervalSince1970)
+        return fileDirectoryURL.appendingPathComponent(fileName).appendingPathComponent(currentTime)
     }
 }
