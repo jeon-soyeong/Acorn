@@ -8,13 +8,13 @@
 import Foundation
 
 class DiskCache {
-    public static let shared = DiskCache()
-
     private var fileDirectoryURL: URL? {
         return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("cache")
     }
+    private var maximumDiskBytes: Int
 
-    init() {
+    init(maximumDiskBytes: Int) {
+        self.maximumDiskBytes = maximumDiskBytes
         createFileDirectory()
     }
 
@@ -41,6 +41,14 @@ class DiskCache {
             print(ImageCacheError.failedSaveDataToDisk.description)
             return
         }
+    }
+    
+    func removeExpiredValues() {
+        
+    }
+    
+    func removeSizeExceededValues() {
+        
     }
 
     func clearDiskCache() {

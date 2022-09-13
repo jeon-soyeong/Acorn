@@ -8,20 +8,32 @@
 import Foundation
 import UIKit
 
-public class ImageCacheManager: NSObject {
+public class ImageCacheManager {
     public static let shared = ImageCacheManager()
-    private let memoryCache = MemoryCache.shared
-    private let diskCache = DiskCache.shared
-    var dataTask: URLSessionDataTask?
+    private var memoryCache: MemoryCache?
+    private var diskCache: DiskCache?
+    private var dataTask: URLSessionDataTask?
 
-    override init() {
-        super.init()
+    private init() {
         setupNotification()
     }
 
     deinit {
-        //TODO: // background, diskWarning 추가
-        NotificationCenter.default.removeObserver(self, name: .memoryWarning, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didReceiveMemoryWarning, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .willTerminate, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEnterBackground, object: nil)
+    }
+
+    public func configureCache(maximumMemoryBytes: Int? = CacheConstants.maximumMemoryBytes, maximumDiskBytes: Int? = CacheConstants.maximumDiskBytes) {
+        if let maximumMemoryBytes = maximumMemoryBytes,
+           let maximumDiskBytes = maximumDiskBytes {
+            memoryCache = MemoryCache(maximumMemoryBytes: maximumMemoryBytes)
+            diskCache = DiskCache(maximumDiskBytes: maximumDiskBytes)
+        }
+        
+        //TODO: Test 후 삭제
+//        clearDiskCache()
+//        print("clearDiskCache")
     }
 
     public func readCachedImageData(key: String) -> CachedImage? {
@@ -49,35 +61,31 @@ public class ImageCacheManager: NSObject {
         return dataTask
     }
 
-    public func configureCacheMemory() {
-        memoryCache.configureCacheMemory()
-    }
-
     public func cancelImageDownloadTask() {
         dataTask?.cancel()
         dataTask = nil
     }
 
     private func readMemoryCachedImageData(with key: String) -> CachedImage? {
-        return memoryCache.read(with: key)
+        return memoryCache?.read(with: key)
     }
 
     private func readDiskCachedImageData(with key: String) -> CachedImage? {
-        let cachedImage = diskCache.read(with: key)
+        let cachedImage = diskCache?.read(with: key)
         if let cachedImage = cachedImage {
-            memoryCache.save(data: cachedImage, with: key)
+            memoryCache?.save(data: cachedImage, with: key)
         }
         return cachedImage
     }
 
     private func saveMemoryCachedImageData(data: CachedImage, with key: String) {
         print("saveMemoryCachedImageData")
-        memoryCache.save(data: data, with: key)
+        memoryCache?.save(data: data, with: key)
     }
 
     private func saveDiskCachedImageData(data: CachedImage, with key: String) {
         print("saveDiskCachedImageData")
-        diskCache.save(data: data, with: key)
+        diskCache?.save(data: data, with: key)
     }
 
     private func downloadImageData(url: String, completionHandler: @escaping (CachedImage?) -> Void) -> URLSessionDataTask? {
@@ -97,15 +105,22 @@ public class ImageCacheManager: NSObject {
     }
 
     private func setupNotification() {
-        //TODO: // background, diskWarning 추가
-        NotificationCenter.default.addObserver(self, selector: #selector(clearMemoryCache), name: .memoryWarning, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(clearMemoryCache), name: .didReceiveMemoryWarning, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeOldDiskCache), name: .willTerminate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeOldDiskCache), name: .didEnterBackground, object: nil)
     }
 
     @objc private func clearMemoryCache() {
-        MemoryCache.shared.clearMemoryCache()
+        memoryCache?.clearMemoryCache()
     }
 
+    //TODO: 사용할지
     @objc private func clearDiskCache() {
-        DiskCache.shared.clearDiskCache()
+        diskCache?.clearDiskCache()
+    }
+
+    @objc private func removeOldDiskCache() {
+        diskCache?.removeExpiredValues()
+        diskCache?.removeSizeExceededValues()
     }
 }

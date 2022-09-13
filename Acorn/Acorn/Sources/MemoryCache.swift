@@ -8,11 +8,9 @@
 import Foundation
 
 class MemoryCache {
-    public static let shared = MemoryCache()
     private let cache = NSCache<NSString, CachedImage>()
-    private let maximumMemoryBytes = Int(ProcessInfo.processInfo.physicalMemory) / 4
-
-    func configureCacheMemory() {
+    
+    init(maximumMemoryBytes: Int) {
         cache.totalCostLimit = maximumMemoryBytes
     }
 
