@@ -68,7 +68,6 @@ public extension DiskCache {
                                                    [
                                                         .isDirectoryKey,
                                                         .creationDateKey,
-                                                        .fileAllocatedSizeKey,
                                                         .fileSizeKey
                                                    ]]
         do {
