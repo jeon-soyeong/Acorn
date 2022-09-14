@@ -14,6 +14,8 @@ public class ImageCacheManager {
     private var diskCache: DiskCache?
     private var dataTask: URLSessionDataTask?
 
+    public var debugMode: Bool = true
+
     private init() {
         setupNotification()
     }
