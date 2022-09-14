@@ -9,7 +9,7 @@ import Foundation
 
 public class CachedImage {
     let imageData: Data
-    
+
     init(imageData: Data) {
         self.imageData = imageData
     }

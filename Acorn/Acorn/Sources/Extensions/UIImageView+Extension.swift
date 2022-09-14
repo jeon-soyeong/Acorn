@@ -1,5 +1,5 @@
 //
-//  UIImageView+Acorn.swift
+//  UIImageView+Extension.swift
 //  Acorn
 //
 //  Created by 전소영 on 2022/09/09.

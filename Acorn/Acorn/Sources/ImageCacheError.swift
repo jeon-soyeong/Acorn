@@ -7,31 +7,43 @@
 
 import Foundation
 
-enum ImageCacheError: Error {
+public enum ImageCacheError: Error {
     case invalidFileName
     case invalidFileDirectoryURL
     case invalidFileURL
+    case invalidFileEnumeratorContents
     case failedData
     case failedDownloadImageData
     case failedSaveDataToDisk
     case failedReadDataFromDisk
+    case failedSetCacheFileAttribute
+    case failedCreateFileEnumerator
+    case failedSortedArray
 
-    public var description: String {
+    var description: String {
         switch self {
         case .invalidFileName:
             return "invalid fileName"
         case .invalidFileDirectoryURL:
-            return "invalid FileDirectoryURL"
+            return "invalid fileDirectoryURL"
         case .invalidFileURL:
-            return "invalid FileURL"
+            return "invalid fileURL"
+        case .invalidFileEnumeratorContents:
+            return "invalid fileEnumeratorContents"
         case .failedData:
-            return "fail to handle Data"
+            return "fail to handle data"
         case .failedDownloadImageData:
-            return "fail to download ImageData"
+            return "fail to download imageData"
         case .failedSaveDataToDisk:
-            return "Fail to save data"
+            return "fail to save data"
         case .failedReadDataFromDisk:
-            return "Fail to read data"
+            return "fail to read data"
+        case .failedSetCacheFileAttribute:
+            return "fail to set cacheFileAttribute"
+        case .failedCreateFileEnumerator:
+            return "fail to create fileEnumerator"
+        case .failedSortedArray:
+            return "fail to sort array"
         }
     }
 }

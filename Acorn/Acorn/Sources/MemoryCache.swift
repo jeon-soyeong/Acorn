@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MemoryCache {
+public class MemoryCache {
     private let cache = NSCache<NSString, CachedImage>()
     
     init(maximumMemoryBytes: Int) {
