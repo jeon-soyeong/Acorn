@@ -18,12 +18,11 @@ extension UIImageView {
             self.image = placeholder
             return nil
         }
-        
+
         guard let cachedData = imageCacheManager.readCachedImageData(key: url) else {
             self.image = placeholder
             dataTask = imageCacheManager.downloadImageData(key: url) { [weak self] cachedData in
                 DispatchQueue.main.async {
-                    print("downloadImage complete")
                     if let cachedImageData = cachedData?.imageData {
                         self?.image = UIImage(data: cachedImageData)
                     }

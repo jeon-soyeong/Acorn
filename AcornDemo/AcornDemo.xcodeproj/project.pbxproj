@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B623C6228D20FC7002D7D4F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B623C6128D20FC7002D7D4F /* TestHelper.swift */; };
 		9B71ABE428CA2E3A005ED247 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */; };
 		9B71ABE628CA2E3A005ED247 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */; };
 		9B71ABE828CA2E3A005ED247 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE728CA2E3A005ED247 /* ViewController.swift */; };
 		9B71ABED28CA2E3E005ED247 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B71ABEC28CA2E3E005ED247 /* Assets.xcassets */; };
 		9B71ABFB28CA2E3E005ED247 /* AcornDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABFA28CA2E3E005ED247 /* AcornDemoTests.swift */; };
-		9B71AC0528CA2E3E005ED247 /* AcornDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC0428CA2E3E005ED247 /* AcornDemoUITests.swift */; };
-		9B71AC0728CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC0628CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift */; };
 		9B71AC3C28CA30F2005ED247 /* Acorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B71AC3B28CA30F2005ED247 /* Acorn.framework */; };
 		9B71AC3D28CA30F2005ED247 /* Acorn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B71AC3B28CA30F2005ED247 /* Acorn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9B71AC4828CC45E8005ED247 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC4728CC45E8005ED247 /* CollectionViewCell.swift */; };
@@ -21,13 +20,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		9B71ABF728CA2E3E005ED247 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9B71ABD828CA2E3A005ED247 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B71ABDF28CA2E3A005ED247;
-			remoteInfo = AcornDemo;
-		};
-		9B71AC0128CA2E3E005ED247 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9B71ABD828CA2E3A005ED247 /* Project object */;
 			proxyType = 1;
@@ -51,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9B623C6128D20FC7002D7D4F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		9B71ABE028CA2E3A005ED247 /* AcornDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcornDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,9 +52,6 @@
 		9B71ABF128CA2E3E005ED247 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B71ABF628CA2E3E005ED247 /* AcornDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AcornDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71ABFA28CA2E3E005ED247 /* AcornDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornDemoTests.swift; sourceTree = "<group>"; };
-		9B71AC0028CA2E3E005ED247 /* AcornDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AcornDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B71AC0428CA2E3E005ED247 /* AcornDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornDemoUITests.swift; sourceTree = "<group>"; };
-		9B71AC0628CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9B71AC3B28CA30F2005ED247 /* Acorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Acorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71AC4728CC45E8005ED247 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,22 +72,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B71ABFD28CA2E3E005ED247 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B623C6028D20F64002D7D4F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9B623C6128D20FC7002D7D4F /* TestHelper.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		9B71ABD728CA2E3A005ED247 = {
 			isa = PBXGroup;
 			children = (
 				9B71ABE228CA2E3A005ED247 /* AcornDemo */,
 				9B71ABF928CA2E3E005ED247 /* AcornDemoTests */,
-				9B71AC0328CA2E3E005ED247 /* AcornDemoUITests */,
 				9B71ABE128CA2E3A005ED247 /* Products */,
 				9B71AC3A28CA30F2005ED247 /* Frameworks */,
 			);
@@ -108,7 +98,6 @@
 			children = (
 				9B71ABE028CA2E3A005ED247 /* AcornDemo.app */,
 				9B71ABF628CA2E3E005ED247 /* AcornDemoTests.xctest */,
-				9B71AC0028CA2E3E005ED247 /* AcornDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,18 +118,10 @@
 		9B71ABF928CA2E3E005ED247 /* AcornDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				9B623C6028D20F64002D7D4F /* Utils */,
 				9B71ABFA28CA2E3E005ED247 /* AcornDemoTests.swift */,
 			);
 			path = AcornDemoTests;
-			sourceTree = "<group>";
-		};
-		9B71AC0328CA2E3E005ED247 /* AcornDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				9B71AC0428CA2E3E005ED247 /* AcornDemoUITests.swift */,
-				9B71AC0628CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift */,
-			);
-			path = AcornDemoUITests;
 			sourceTree = "<group>";
 		};
 		9B71AC3A28CA30F2005ED247 /* Frameworks */ = {
@@ -190,24 +171,6 @@
 			productReference = 9B71ABF628CA2E3E005ED247 /* AcornDemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9B71ABFF28CA2E3E005ED247 /* AcornDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9B71AC1028CA2E3E005ED247 /* Build configuration list for PBXNativeTarget "AcornDemoUITests" */;
-			buildPhases = (
-				9B71ABFC28CA2E3E005ED247 /* Sources */,
-				9B71ABFD28CA2E3E005ED247 /* Frameworks */,
-				9B71ABFE28CA2E3E005ED247 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9B71AC0228CA2E3E005ED247 /* PBXTargetDependency */,
-			);
-			name = AcornDemoUITests;
-			productName = AcornDemoUITests;
-			productReference = 9B71AC0028CA2E3E005ED247 /* AcornDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -222,10 +185,6 @@
 						CreatedOnToolsVersion = 13.0;
 					};
 					9B71ABF528CA2E3E005ED247 = {
-						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 9B71ABDF28CA2E3A005ED247;
-					};
-					9B71ABFF28CA2E3E005ED247 = {
 						CreatedOnToolsVersion = 13.0;
 						TestTargetID = 9B71ABDF28CA2E3A005ED247;
 					};
@@ -246,7 +205,6 @@
 			targets = (
 				9B71ABDF28CA2E3A005ED247 /* AcornDemo */,
 				9B71ABF528CA2E3E005ED247 /* AcornDemoTests */,
-				9B71ABFF28CA2E3E005ED247 /* AcornDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -261,13 +219,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9B71ABF428CA2E3E005ED247 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B71ABFE28CA2E3E005ED247 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,15 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B71ABFB28CA2E3E005ED247 /* AcornDemoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B71ABFC28CA2E3E005ED247 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9B71AC0528CA2E3E005ED247 /* AcornDemoUITests.swift in Sources */,
-				9B71AC0728CA2E3E005ED247 /* AcornDemoUITestsLaunchTests.swift in Sources */,
+				9B623C6228D20FC7002D7D4F /* TestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,11 +255,6 @@
 			isa = PBXTargetDependency;
 			target = 9B71ABDF28CA2E3A005ED247 /* AcornDemo */;
 			targetProxy = 9B71ABF728CA2E3E005ED247 /* PBXContainerItemProxy */;
-		};
-		9B71AC0228CA2E3E005ED247 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B71ABDF28CA2E3A005ED247 /* AcornDemo */;
-			targetProxy = 9B71AC0128CA2E3E005ED247 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -541,52 +479,6 @@
 			};
 			name = Release;
 		};
-		9B71AC1128CA2E3E005ED247 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 577SG3C42S;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = soyeong.AcornDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = AcornDemo;
-			};
-			name = Debug;
-		};
-		9B71AC1228CA2E3E005ED247 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 577SG3C42S;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = soyeong.AcornDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = AcornDemo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -613,15 +505,6 @@
 			buildConfigurations = (
 				9B71AC0E28CA2E3E005ED247 /* Debug */,
 				9B71AC0F28CA2E3E005ED247 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9B71AC1028CA2E3E005ED247 /* Build configuration list for PBXNativeTarget "AcornDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9B71AC1128CA2E3E005ED247 /* Debug */,
-				9B71AC1228CA2E3E005ED247 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

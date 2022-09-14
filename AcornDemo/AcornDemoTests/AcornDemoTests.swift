@@ -7,27 +7,137 @@
 
 import XCTest
 @testable import AcornDemo
+@testable import Acorn
 
 class AcornDemoTests: XCTestCase {
+    let imageCacheManager = ImageCacheManager.shared
+    let diskCache = DiskCache(maximumDiskBytes: 10, expiration: .seconds(1))
+    let testString = "testCacheData!!!.png"
+    var cacheData: CachedImage?
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        diskCache.clearDiskCache()
+
+        guard let testData = """
+        \(testString)
+        """.data(using: .utf8) else {
+            XCTFail()
+            return
+        }
+        cacheData = CachedImage(imageData: testData)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func test_givenImageCacheManager_WhenSaveAndReadMemoryCache_ThenSuccess() throws {
+        if let cacheData = cacheData {
+            imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
+        }
+
+        guard let result = imageCacheManager.readMemoryCachedImageData(with: "dataKey") else {
+            XCTFail()
+            return
+        }
+        XCTAssert(result.imageData.count == 20)
+
+        let resultString = String(data: result.imageData, encoding: .utf8)
+        XCTAssert(resultString == testString)
+    }
+    
+    func test_givenImageCacheManager_WhenClearMemoryCache_ThenSuccess() throws {
+        if let cacheData = cacheData {
+            imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
+        }
+
+        guard let result = imageCacheManager.readMemoryCachedImageData(with: "dataKey") else {
+            XCTFail()
+            return
+        }
+        XCTAssert(result.imageData.count == 20)
+
+        imageCacheManager.clearMemoryCache()
+        if let dataCount = imageCacheManager.readMemoryCachedImageData(with: "dataKey")?.imageData.count {
+            XCTAssertEqual(dataCount, 0)
+        }
+        XCTAssertNil(imageCacheManager.readMemoryCachedImageData(with: "dataKey")?.imageData)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func test_givenImageCacheManager_WhenSaveAndReadDiskCache_ThenSuccess() throws {
+        if let cacheData = cacheData {
+            imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+        }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        guard let result = imageCacheManager.readDiskCachedImageData(with: "dataKey") else {
+            XCTFail()
+            return
+        }
+        XCTAssert(result.imageData.count == 20)
+
+        let resultString = String(data: result.imageData, encoding: .utf8)
+        XCTAssert(resultString == testString)
+    }
+    
+    func test_givenImageCacheManager_WhenClearDiskCache_ThenSuccess() throws {
+        if let cacheData = cacheData {
+            imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+        }
+
+        guard let result = imageCacheManager.readDiskCachedImageData(with: "dataKey") else {
+            XCTFail()
+            return
+        }
+        XCTAssert(result.imageData.count == 20)
+
+        imageCacheManager.clearDiskCache()
+        if let dataCount = imageCacheManager.readDiskCachedImageData(with: "dataKey")?.imageData.count {
+            XCTAssertEqual(dataCount, 0)
+        }
+        XCTAssertNil(imageCacheManager.readDiskCachedImageData(with: "dataKey")?.imageData)
+    }
+    
+    func test_givenDiskCache_WhenGetTotalDiskCacheSize_ThenSuccess() throws {
+        var totalDiskCacheSize = diskCache.getTotalDiskCacheSize()
+        XCTAssertEqual(totalDiskCacheSize, 0)
+
+        if let cacheData = cacheData {
+            imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+            totalDiskCacheSize = diskCache.getTotalDiskCacheSize()
+            XCTAssertEqual(totalDiskCacheSize, 20)
         }
     }
+    
+    func test_givenDiskCache_WhenRemoveExpiredCache_ThenSuccess() {
+        let expectation = expectation(description: #function)
 
+        if let cacheData = cacheData {
+            diskCache.save(data: cacheData, with: "dataKey")
+        }
+        delay(2.0) {
+            try? self.diskCache.removeExpiredCache()
+            XCTAssertNil(self.diskCache.read(with: "dataKey"))
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 10.0)
+    }
+
+    func test_givenDiskCache_WhenRemoveOverSizeCache_ThenSuccess() {
+        if let cacheData = cacheData {
+            diskCache.save(data: cacheData, with: "dataKey")
+        }
+
+        let testString2 = ".png"
+        guard let testData2 = """
+        \(testString2)
+        """.data(using: .utf8) else {
+            XCTFail()
+            return
+        }
+        let data2 = CachedImage(imageData: testData2)
+        diskCache.save(data: data2, with: "dataKey2")
+
+        XCTAssertEqual(diskCache.getTotalDiskCacheSize(), 24)
+        try? diskCache.removeOverSizeCache()
+
+        XCTAssertEqual(diskCache.getTotalDiskCacheSize(), 4)
+        XCTAssertTrue(diskCache.getTotalDiskCacheSize() < diskCache.maximumDiskBytes)
+    }
 }
