@@ -178,8 +178,11 @@ private extension DiskCache {
     }
 
     func getTotalDiskCacheSize(urls: [URL], keys: Set<URLResourceKey>) -> Int {
-        let resourceValues = try? urls.first?.resourceValues(forKeys: keys)
-        let totalSize = resourceValues?.totalFileAllocatedSize ?? 0
+        let totalSize = urls.reduce(0) { size, url in
+            let resourceValues = try? url.resourceValues(forKeys: keys)
+            let fileSize = resourceValues?.fileSize ?? 0
+            return size + fileSize
+        }
         return totalSize
     }
 
