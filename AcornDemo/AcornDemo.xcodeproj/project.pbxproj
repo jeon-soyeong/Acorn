@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B623C6228D20FC7002D7D4F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B623C6128D20FC7002D7D4F /* TestHelper.swift */; };
 		9B71ABE428CA2E3A005ED247 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */; };
 		9B71ABE628CA2E3A005ED247 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */; };
 		9B71ABE828CA2E3A005ED247 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71ABE728CA2E3A005ED247 /* ViewController.swift */; };
@@ -43,7 +42,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9B623C6128D20FC7002D7D4F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		9B71ABE028CA2E3A005ED247 /* AcornDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcornDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71ABE328CA2E3A005ED247 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B71ABE528CA2E3A005ED247 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,14 +73,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9B623C6028D20F64002D7D4F /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				9B623C6128D20FC7002D7D4F /* TestHelper.swift */,
-			);
-			name = Utils;
-			sourceTree = "<group>";
-		};
 		9B71ABD728CA2E3A005ED247 = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +108,6 @@
 		9B71ABF928CA2E3E005ED247 /* AcornDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				9B623C6028D20F64002D7D4F /* Utils */,
 				9B71ABFA28CA2E3E005ED247 /* AcornDemoTests.swift */,
 			);
 			path = AcornDemoTests;
@@ -244,7 +233,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B71ABFB28CA2E3E005ED247 /* AcornDemoTests.swift in Sources */,
-				9B623C6228D20FC7002D7D4F /* TestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

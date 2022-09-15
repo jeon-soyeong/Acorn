@@ -14,6 +14,19 @@
 		9B619B9528D0908200FA1D75 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9428D0908200FA1D75 /* Date+Extension.swift */; };
 		9B619B9728D0929100FA1D75 /* CacheExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9628D0929100FA1D75 /* CacheExpiration.swift */; };
 		9B623C5F28D19E43002D7D4F /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B623C5E28D19E43002D7D4F /* DebugPrint.swift */; };
+		9B623C8C28D2F073002D7D4F /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC3828CA301E005ED247 /* ImageCacheManager.swift */; };
+		9B623C8D28D2F077002D7D4F /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8C28CED72500FA1D75 /* DiskCache.swift */; };
+		9B623C8E28D2F07C002D7D4F /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8A28CED71100FA1D75 /* MemoryCache.swift */; };
+		9B623C8F28D2F081002D7D4F /* ImageCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8828CED6F700FA1D75 /* ImageCacheError.swift */; };
+		9B623C9028D2F083002D7D4F /* CacheExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9628D0929100FA1D75 /* CacheExpiration.swift */; };
+		9B623C9128D2F085002D7D4F /* CacheConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9228D06B0A00FA1D75 /* CacheConstants.swift */; };
+		9B623C9228D2F088002D7D4F /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC4328CB6764005ED247 /* CachedImage.swift */; };
+		9B623C9328D2F096002D7D4F /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC4528CB9DAB005ED247 /* NotificationName+Extension.swift */; };
+		9B623C9428D2F098002D7D4F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9428D0908200FA1D75 /* Date+Extension.swift */; };
+		9B623C9528D2F09A002D7D4F /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC4128CB3F66005ED247 /* UIButton+Extension.swift */; };
+		9B623C9628D2F09C002D7D4F /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC3F28CB3F57005ED247 /* UIImageView+Extension.swift */; };
+		9B623C9728D2F09E002D7D4F /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B623C5E28D19E43002D7D4F /* DebugPrint.swift */; };
+		9B623C9B28D2F1E6002D7D4F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B623C9928D2F1E4002D7D4F /* TestHelper.swift */; };
 		9B71AC2228CA2E86005ED247 /* Acorn.docc in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC2128CA2E86005ED247 /* Acorn.docc */; };
 		9B71AC2828CA2E86005ED247 /* Acorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B71AC1D28CA2E86005ED247 /* Acorn.framework */; };
 		9B71AC2D28CA2E86005ED247 /* AcornTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC2C28CA2E86005ED247 /* AcornTests.swift */; };
@@ -43,6 +56,7 @@
 		9B619B9428D0908200FA1D75 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		9B619B9628D0929100FA1D75 /* CacheExpiration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheExpiration.swift; sourceTree = "<group>"; };
 		9B623C5E28D19E43002D7D4F /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
+		9B623C9928D2F1E4002D7D4F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		9B71AC1D28CA2E86005ED247 /* Acorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Acorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71AC2028CA2E86005ED247 /* Acorn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Acorn.h; sourceTree = "<group>"; };
 		9B71AC2128CA2E86005ED247 /* Acorn.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Acorn.docc; sourceTree = "<group>"; };
@@ -93,6 +107,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		9B623C9A28D2F1E4002D7D4F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9B623C9928D2F1E4002D7D4F /* TestHelper.swift */,
+			);
+			name = Utils;
+			path = ../../AcornDemo/AcornDemoTests;
+			sourceTree = "<group>";
+		};
 		9B71AC1328CA2E86005ED247 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +147,7 @@
 		9B71AC2B28CA2E86005ED247 /* AcornTests */ = {
 			isa = PBXGroup;
 			children = (
+				9B623C9A28D2F1E4002D7D4F /* Utils */,
 				9B71AC2C28CA2E86005ED247 /* AcornTests.swift */,
 			);
 			path = AcornTests;
@@ -274,7 +298,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B623C8C28D2F073002D7D4F /* ImageCacheManager.swift in Sources */,
+				9B623C8E28D2F07C002D7D4F /* MemoryCache.swift in Sources */,
+				9B623C8F28D2F081002D7D4F /* ImageCacheError.swift in Sources */,
+				9B623C9528D2F09A002D7D4F /* UIButton+Extension.swift in Sources */,
+				9B623C9128D2F085002D7D4F /* CacheConstants.swift in Sources */,
+				9B623C9028D2F083002D7D4F /* CacheExpiration.swift in Sources */,
+				9B623C9628D2F09C002D7D4F /* UIImageView+Extension.swift in Sources */,
+				9B623C9728D2F09E002D7D4F /* DebugPrint.swift in Sources */,
+				9B623C9428D2F098002D7D4F /* Date+Extension.swift in Sources */,
+				9B623C9B28D2F1E6002D7D4F /* TestHelper.swift in Sources */,
+				9B623C9328D2F096002D7D4F /* NotificationName+Extension.swift in Sources */,
 				9B71AC2D28CA2E86005ED247 /* AcornTests.swift in Sources */,
+				9B623C8D28D2F077002D7D4F /* DiskCache.swift in Sources */,
+				9B623C9228D2F088002D7D4F /* CachedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

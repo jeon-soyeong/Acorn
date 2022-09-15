@@ -10,8 +10,8 @@ import UIKit
 
 public class ImageCacheManager {
     public static let shared = ImageCacheManager()
-    private var memoryCache: MemoryCache?
-    private var diskCache: DiskCache?
+    public var memoryCache: MemoryCache?
+    public var diskCache: DiskCache?
     private var dataTask: URLSessionDataTask?
 
     public var debugMode: Bool = true

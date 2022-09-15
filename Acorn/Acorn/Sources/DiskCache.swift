@@ -198,8 +198,7 @@ private extension DiskCache {
             var sortedURLsByCreationDate = try sortURLsByCreationDate(urls: urls, keys: keys)
             
             while totalSize > targetSize, let lastURL = sortedURLsByCreationDate.popLast() {
-                let resourceValues = try lastURL.resourceValues(forKeys: keys)
-                if let fileSize = resourceValues.fileSize {
+                if let fileSize = try? lastURL.resourceValues(forKeys: keys).fileSize {
                     totalSize -= fileSize
                     removeFile(at: lastURL)
                 }
