@@ -56,7 +56,7 @@
 		9B619B9428D0908200FA1D75 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		9B619B9628D0929100FA1D75 /* CacheExpiration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheExpiration.swift; sourceTree = "<group>"; };
 		9B623C5E28D19E43002D7D4F /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
-		9B623C9928D2F1E4002D7D4F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		9B623C9928D2F1E4002D7D4F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestHelper.swift; path = ../../Acorn/AcornTests/Utils/TestHelper.swift; sourceTree = "<group>"; };
 		9B71AC1D28CA2E86005ED247 /* Acorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Acorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B71AC2028CA2E86005ED247 /* Acorn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Acorn.h; sourceTree = "<group>"; };
 		9B71AC2128CA2E86005ED247 /* Acorn.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Acorn.docc; sourceTree = "<group>"; };

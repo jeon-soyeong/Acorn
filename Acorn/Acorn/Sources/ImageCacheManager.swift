@@ -76,7 +76,6 @@ public extension ImageCacheManager {
                debugPrint(ImageCacheError.failedDownloadImageData.description)
                return
            }
-           print("downloadImageData: \(downloadImageData.imageData)")
            completionHandler(downloadImageData)
         }
 
