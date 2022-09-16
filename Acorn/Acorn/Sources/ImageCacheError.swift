@@ -19,6 +19,7 @@ public enum ImageCacheError: Error {
     case failedSetCacheFileAttribute
     case failedCreateFileEnumerator
     case failedSortedArray
+    case failedGetFileModificationDate
 
     var description: String {
         switch self {
@@ -44,6 +45,8 @@ public enum ImageCacheError: Error {
             return "fail to create fileEnumerator"
         case .failedSortedArray:
             return "fail to sort array"
+        case .failedGetFileModificationDate:
+            return "fail to get fileModificationDate"
         }
     }
 }

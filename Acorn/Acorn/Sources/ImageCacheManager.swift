@@ -57,6 +57,7 @@ public extension ImageCacheManager {
     func readDiskCachedImageData(with key: String) -> CachedImage? {
         let cachedImage = diskCache?.read(with: key)
         if let cachedImage = cachedImage {
+            diskCache?.hit(with: key)
             memoryCache?.save(data: cachedImage, with: key)
         }
         return cachedImage

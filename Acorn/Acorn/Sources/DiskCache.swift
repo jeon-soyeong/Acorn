@@ -44,15 +44,63 @@ public extension DiskCache {
         }
         do {
             try data.imageData.write(to: fileURL)
-            
-            let now = Date()
-            let attributes: [FileAttributeKey: Any] = [
-                .creationDate: now.fileDate,
-                .modificationDate: expiration.calculateExpirationDate(from: now).fileDate
-            ]
-            try FileManager.default.setAttributes(attributes, ofItemAtPath: fileURL.path)
+            try setFileAttributes(fileURL: fileURL)
         } catch {
             debugPrint(error.localizedDescription)
+        }
+    }
+    
+    func hit(with key: String) {
+        do {
+            guard let fileURL = getFileURL(key: key) else {
+                debugPrint(ImageCacheError.invalidFileURL.description)
+                return
+            }
+            try setFileAttributes(fileURL: fileURL)
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+    }
+    
+    func setFileAttributes(fileURL: URL) throws {
+        let now = Date()
+        let attributes: [FileAttributeKey: Any] = [
+            .modificationDate: now.fileDate
+        ]
+        do {
+            try FileManager.default.setAttributes(attributes, ofItemAtPath: fileURL.path)
+        } catch {
+            throw error
+        }
+    }
+
+    func getAllFileURLs(key: [URLResourceKey]) throws -> [URL] {
+        guard let fileDirectoryURL = self.fileDirectoryURL else {
+            throw ImageCacheError.invalidFileDirectoryURL
+        }
+    
+        guard let directoryEnumerator = FileManager.default.enumerator(at: fileDirectoryURL,
+                                                                       includingPropertiesForKeys: key,
+                                                                       options: .skipsHiddenFiles) else {
+            throw ImageCacheError.failedCreateFileEnumerator
+        }
+
+        guard let urls = directoryEnumerator.allObjects as? [URL] else {
+            throw ImageCacheError.invalidFileEnumeratorContents
+        }
+        return urls
+    }
+
+    func getFileModificationDate(fileURL: URL) throws -> Date {
+        do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
+            guard let modificationDate = attributes[.modificationDate] as? Date else {
+                throw ImageCacheError.failedGetFileModificationDate
+            }
+            
+            return modificationDate
+        } catch {
+           throw error
         }
     }
 
@@ -101,7 +149,7 @@ public extension DiskCache {
 
     func removeOverSizeCache() throws {
         let urlResourceKeys: [URLResourceKey] = [.isDirectoryKey,
-                                                 .creationDateKey,
+                                                 .contentModificationDateKey,
                                                  .fileSizeKey]
         do {
             let urls = try getAllFileURLs(key: urlResourceKeys)
@@ -142,25 +190,8 @@ private extension DiskCache {
             debugPrint(ImageCacheError.invalidFileDirectoryURL.description)
             return nil
         }
-        
-        return fileDirectoryURL.appendingPathComponent(fileName)
-    }
-
-    func getAllFileURLs(key: [URLResourceKey]) throws -> [URL] {
-        guard let fileDirectoryURL = self.fileDirectoryURL else {
-            throw ImageCacheError.invalidFileDirectoryURL
-        }
     
-        guard let directoryEnumerator = FileManager.default.enumerator(at: fileDirectoryURL,
-                                                                       includingPropertiesForKeys: key,
-                                                                       options: .skipsHiddenFiles) else {
-            throw ImageCacheError.failedCreateFileEnumerator
-        }
-
-        guard let urls = directoryEnumerator.allObjects as? [URL] else {
-            throw ImageCacheError.invalidFileEnumeratorContents
-        }
-        return urls
+        return fileDirectoryURL.appendingPathComponent(fileName)
     }
 
     func getExpiredFiles(urls: [URL], keys: Set<URLResourceKey>) -> [URL] {
@@ -168,25 +199,29 @@ private extension DiskCache {
 
         let expiredURLs = urls.filter { fileURL in
             let resourceValues = try? fileURL.resourceValues(forKeys: keys)
-            let expirationDate = resourceValues?.contentModificationDate
             let isDirectory = resourceValues?.isDirectory ?? false
             if isDirectory {
                 return false
             }
-            return expirationDate?.isPast(from: now) ?? true
+            var isExpired: Bool = true
+            if let contentModificationDate = resourceValues?.contentModificationDate {
+                let expirationDate = expiration.calculateExpirationDate(from: contentModificationDate)
+                isExpired = expirationDate.isPast(from: now)
+            }
+            return isExpired
         }
         return expiredURLs
     }
 
-    func sortURLsByCreationDate(urls: [URL], keys: Set<URLResourceKey>) throws -> [URL] {
+    func sortURLsByContentModificationDate(urls: [URL], keys: Set<URLResourceKey>) throws -> [URL] {
         let sortedUrls = try urls.sorted(by: {
             let resourceValuesForLhs = try $0.resourceValues(forKeys: keys)
             let resourceValuesForRhs = try $1.resourceValues(forKeys: keys)
-            guard let creationDateForLhs = resourceValuesForLhs.creationDate,
-                  let creationDateForRhs = resourceValuesForRhs.creationDate else {
+            guard let contentModificationDateForLhs = resourceValuesForLhs.contentModificationDate,
+                  let contentModificationDateForRhs = resourceValuesForRhs.contentModificationDate else {
                       throw ImageCacheError.failedSortedArray
                   }
-            return creationDateForLhs > creationDateForRhs
+            return contentModificationDateForLhs > contentModificationDateForRhs
         })
         return sortedUrls
     }
@@ -195,9 +230,9 @@ private extension DiskCache {
         do {
             let targetSize = maximumDiskBytes / 2
             var totalSize = getTotalDiskCacheSize()
-            var sortedURLsByCreationDate = try sortURLsByCreationDate(urls: urls, keys: keys)
+            var sortURLsByContentModificationDate = try sortURLsByContentModificationDate(urls: urls, keys: keys)
             
-            while totalSize > targetSize, let lastURL = sortedURLsByCreationDate.popLast() {
+            while totalSize > targetSize, let lastURL = sortURLsByContentModificationDate.popLast() {
                 if let fileSize = try? lastURL.resourceValues(forKeys: keys).fileSize {
                     totalSize -= fileSize
                     removeFile(at: lastURL)
