@@ -23,6 +23,7 @@ public class DiskCache {
 
 // MARK: public
 public extension DiskCache {
+    @discardableResult
     func read(with key: String) -> CachedImage? {
         guard let fileURL = getFileURL(key: key) else {
             debugPrint(ImageCacheError.invalidFileURL.description)
@@ -33,7 +34,7 @@ public extension DiskCache {
             debugPrint(ImageCacheError.failedReadDataFromDisk.description)
             return nil
         }
-        
+        hit(with: fileURL)
         return CachedImage(imageData: imageData)
     }
 
@@ -49,19 +50,7 @@ public extension DiskCache {
             debugPrint(error.localizedDescription)
         }
     }
-    
-    func hit(with key: String) {
-        do {
-            guard let fileURL = getFileURL(key: key) else {
-                debugPrint(ImageCacheError.invalidFileURL.description)
-                return
-            }
-            try setFileAttributes(fileURL: fileURL)
-        } catch {
-            debugPrint(error.localizedDescription)
-        }
-    }
-    
+
     func setFileAttributes(fileURL: URL) throws {
         let now = Date()
         let attributes: [FileAttributeKey: Any] = [
@@ -245,5 +234,13 @@ private extension DiskCache {
 
     func removeFile(at url: URL) {
         try? FileManager.default.removeItem(at: url)
+    }
+
+    func hit(with fileURL: URL) {
+        do {
+            try setFileAttributes(fileURL: fileURL)
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
     }
 }
