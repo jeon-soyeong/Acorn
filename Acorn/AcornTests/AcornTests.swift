@@ -29,9 +29,11 @@ class AcornTests: XCTestCase {
     }
 
     func test_givenImageCacheManager_WhenSaveAndReadMemoryCache_ThenSuccess() throws {
-        if let cacheData = cacheData {
-            imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
+        imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
 
         guard let result = imageCacheManager.readMemoryCachedImageData(with: "dataKey") else {
             XCTFail()
@@ -44,9 +46,11 @@ class AcornTests: XCTestCase {
     }
 
     func test_givenImageCacheManager_WhenClearMemoryCache_ThenSuccess() throws {
-        if let cacheData = cacheData {
-            imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
+        imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
 
         guard let result = imageCacheManager.readMemoryCachedImageData(with: "dataKey") else {
             XCTFail()
@@ -62,9 +66,11 @@ class AcornTests: XCTestCase {
     }
 
     func test_givenImageCacheManager_WhenSaveAndReadDiskCache_ThenSuccess() throws {
-        if let cacheData = cacheData {
-            imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
+        imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
 
         guard let result = imageCacheManager.readDiskCachedImageData(with: "dataKey") else {
             XCTFail()
@@ -77,9 +83,11 @@ class AcornTests: XCTestCase {
     }
 
     func test_givenImageCacheManager_WhenClearDiskCache_ThenSuccess() throws {
-        if let cacheData = cacheData {
-            imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
+        imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
 
         guard let result = imageCacheManager.readDiskCachedImageData(with: "dataKey") else {
             XCTFail()
@@ -102,44 +110,48 @@ class AcornTests: XCTestCase {
             diskCache?.save(data: cacheData, with: "dataKey")
             totalDiskCacheSize = diskCache?.getTotalDiskCacheSize()
             XCTAssertEqual(totalDiskCacheSize, 20)
+        } else {
+            XCTFail()
         }
     }
 
     func test_givenDiskCache_WhenCacheHit_ThenSuccess() {
         let expectation = expectation(description: #function)
         
-        let key = "dataKey"
-        if let cacheData = cacheData {
-            diskCache?.save(data: cacheData, with: key)
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
-        
-        delay(2) {
-            do {
-                let urlResourceKeys: [URLResourceKey] = [.contentModificationDateKey]
-                let urls = try self.diskCache?.getAllFileURLs(key: urlResourceKeys)
+        let key = "dataKey"
+        diskCache?.save(data: cacheData, with: key)
+
+        do {
+            let urlResourceKeys: [URLResourceKey] = [.contentModificationDateKey]
+            let urls = try self.diskCache?.getAllFileURLs(key: urlResourceKeys)
+            
+            guard let fileURL = urls?.first,
+                  let modificationDate = try self.diskCache?.getFileModificationDate(fileURL: fileURL) else {
+                      XCTFail()
+                      return
+                  }
+
+            delay(1.0) {
+                self.diskCache?.read(with: key)
                 
-                guard let cachedData = self.diskCache?.read(with: key),
-                      let fileURL = urls?.first,
-                      let modificationDate = try self.diskCache?.getFileModificationDate(fileURL: fileURL) else {
-                    XCTFail()
-                    return
-                }
-                self.diskCache?.hit(with: key)
-   
-                guard let modificationDate2 = try self.diskCache?.getFileModificationDate(fileURL: fileURL) else {
+                guard let modificationDate2 = try? self.diskCache?.getFileModificationDate(fileURL: fileURL) else {
                     XCTFail()
                     return
                 }
                 XCTAssertTrue(modificationDate < modificationDate2)
                 expectation.fulfill()
             }
-            catch {
-                if let error = error as? ImageCacheError {
-                    debugPrint(error.description)
-                } else {
-                    debugPrint(error.localizedDescription)
-                }
+        } catch {
+            if let error = error as? ImageCacheError {
+                debugPrint(error.description)
+            } else {
+                debugPrint(error.localizedDescription)
             }
+            XCTFail()
         }
 
         wait(for: [expectation], timeout: 10.0)
@@ -148,9 +160,12 @@ class AcornTests: XCTestCase {
     func test_givenDiskCache_WhenRemoveExpiredCache_ThenSuccess() {
         let expectation = expectation(description: #function)
 
-        if let cacheData = cacheData {
-            diskCache?.save(data: cacheData, with: "dataKey")
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
+        diskCache?.save(data: cacheData, with: "dataKey")
+
         delay(2.0) {
             try? self.diskCache?.removeExpiredCache()
             XCTAssertNil(self.diskCache?.read(with: "dataKey"))
@@ -161,9 +176,11 @@ class AcornTests: XCTestCase {
     }
 
     func test_givenDiskCache_WhenRemoveOverSizeCache_ThenSuccess() {
-        if let cacheData = cacheData {
-            diskCache?.save(data: cacheData, with: "dataKey")
+        guard let cacheData = cacheData else {
+            XCTFail()
+            return
         }
+        diskCache?.save(data: cacheData, with: "dataKey")
 
         let testString2 = ".png"
         guard let testData2 = """
