@@ -8,7 +8,7 @@
 import Foundation
 
 func debugPrint(_ content: String) {
-    guard ImageCacheManager.shared.debugMode else { return }
+    guard AcornManager.shared.debugMode else { return }
     #if DEBUG
     print("[ACORN][DEBUG] \(content)")
     #endif

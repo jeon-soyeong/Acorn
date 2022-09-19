@@ -11,7 +11,7 @@ import UIKit
 extension UIImageView {
     @discardableResult
     public func setImage(with url: String?, placeholder: UIImage? = nil) -> URLSessionDataTask? {
-        let imageCacheManager = ImageCacheManager.shared
+        let acornManager = AcornManager.shared
         var dataTask: URLSessionDataTask?
 
         guard let url = url else {
@@ -19,9 +19,9 @@ extension UIImageView {
             return nil
         }
 
-        guard let cachedData = imageCacheManager.readCachedImageData(key: url) else {
+        guard let cachedData = acornManager.readCachedImageData(key: url) else {
             self.image = placeholder
-            dataTask = imageCacheManager.downloadImageData(key: url) { [weak self] cachedData in
+            dataTask = acornManager.downloadImageData(key: url) { [weak self] cachedData in
                 DispatchQueue.main.async {
                     if let cachedImageData = cachedData?.imageData {
                         self?.image = UIImage(data: cachedImageData)

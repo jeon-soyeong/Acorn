@@ -11,18 +11,21 @@ public class DiskCache {
     private var fileDirectoryURL: URL? {
         return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("cache")
     }
-    private var expiration: CacheExpiration
-    private(set) var maximumDiskBytes: Int
+    private(set) var maximumDiskBytes: Int = CacheConstants.maximumDiskBytes
+    private var expiration: CacheExpiration = .days(10)
 
-    init(maximumDiskBytes: Int, expiration: CacheExpiration) {
-        self.maximumDiskBytes = maximumDiskBytes
-        self.expiration = expiration
-        createFileDirectory()
+    init() {
+        self.createFileDirectory()
     }
 }
 
 // MARK: public
 public extension DiskCache {
+    func configure(maximumDiskBytes: Int, expiration: CacheExpiration) {
+        self.maximumDiskBytes = maximumDiskBytes
+        self.expiration = expiration
+    }
+    
     @discardableResult
     func read(with key: String) -> CachedImage? {
         guard let fileURL = getFileURL(key: key) else {

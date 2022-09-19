@@ -1,5 +1,5 @@
 //
-//  ImageCacheManager.swift
+//  AcornManager.swift
 //  Acorn
 //
 //  Created by 전소영 on 2022/09/08.
@@ -8,15 +8,17 @@
 import Foundation
 import UIKit
 
-public class ImageCacheManager {
-    public static let shared = ImageCacheManager()
-    public var memoryCache: MemoryCache?
-    public var diskCache: DiskCache?
+public class AcornManager {
+    public static let shared = AcornManager()
+    public var memoryCache: MemoryCache
+    public var diskCache: DiskCache
     private var dataTask: URLSessionDataTask?
 
     public var debugMode: Bool = true
 
     private init() {
+        memoryCache = MemoryCache()
+        diskCache = DiskCache()
         setupNotification()
     }
 
@@ -28,15 +30,15 @@ public class ImageCacheManager {
 }
 
 // MARK: public
-public extension ImageCacheManager {
+public extension AcornManager {
     func configureCache(maximumMemoryBytes: Int? = CacheConstants.maximumMemoryBytes,
                                maximumDiskBytes: Int? = CacheConstants.maximumDiskBytes,
                                expiration: CacheExpiration? = .days(10)) {
         if let maximumMemoryBytes = maximumMemoryBytes,
            let maximumDiskBytes = maximumDiskBytes,
            let expiration = expiration {
-            memoryCache = MemoryCache(maximumMemoryBytes: maximumMemoryBytes)
-            diskCache = DiskCache(maximumDiskBytes: maximumDiskBytes, expiration: expiration)
+            memoryCache.configure(maximumMemoryBytes: maximumMemoryBytes)
+            diskCache.configure(maximumDiskBytes: maximumDiskBytes, expiration: expiration)
         }
     }
 
@@ -51,23 +53,23 @@ public extension ImageCacheManager {
     }
 
     func readMemoryCachedImageData(with key: String) -> CachedImage? {
-        return memoryCache?.read(with: key)
+        return memoryCache.read(with: key)
     }
 
     func readDiskCachedImageData(with key: String) -> CachedImage? {
-        let cachedImage = diskCache?.read(with: key)
+        let cachedImage = diskCache.read(with: key)
         if let cachedImage = cachedImage {
-            memoryCache?.save(data: cachedImage, with: key)
+            memoryCache.save(data: cachedImage, with: key)
         }
         return cachedImage
     }
 
     func saveMemoryCachedImageData(data: CachedImage, with key: String) {
-        memoryCache?.save(data: data, with: key)
+        memoryCache.save(data: data, with: key)
     }
 
     func saveDiskCachedImageData(data: CachedImage, with key: String) {
-        diskCache?.save(data: data, with: key)
+        diskCache.save(data: data, with: key)
     }
 
     func downloadImageData(key: String, completionHandler: @escaping (CachedImage?) -> Void) -> URLSessionDataTask? {
@@ -82,22 +84,17 @@ public extension ImageCacheManager {
         return dataTask
     }
 
-    func cancelImageDownloadTask() {
-        dataTask?.cancel()
-        dataTask = nil
-    }
-
     @objc func clearMemoryCache() {
-        memoryCache?.clearMemoryCache()
+        memoryCache.clearMemoryCache()
     }
 
     @objc func clearDiskCache() {
-        diskCache?.clearDiskCache()
+        diskCache.clearDiskCache()
     }
 }
 
 // MARK: private
-private extension ImageCacheManager {
+private extension AcornManager {
     func downloadImageData(url: String, completionHandler: @escaping (CachedImage?) -> Void) -> URLSessionDataTask? {
         if let imageUrl = URL(string: url) {
             dataTask = URLSession.shared.dataTask(with: imageUrl) { [weak self] (data, response, error) in
@@ -121,6 +118,6 @@ private extension ImageCacheManager {
     }
     
     @objc func removeUnnecessaryDiskCache() {
-        diskCache?.removeUnnecessaryCache()
+        diskCache.removeUnnecessaryCache()
     }
 }
