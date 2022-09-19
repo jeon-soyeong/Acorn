@@ -35,7 +35,9 @@ imageView.setImage(with: url, placeholder: UIImage(named: "placeholderImage")
   - maximumDiskBytes
   - expiration: seconds, days, date
 ```Swift
-AcornManager.shared.configureCache(maximumMemoryBytes: 10485760, maximumDiskBytes: 10485760, expiration: .days(7))
+AcornManager.shared.configureCache(maximumMemoryBytes: 10485760, 
+                                   maximumDiskBytes: 10485760, 
+                                   expiration: .days(7))
 ```
 
 ## Author
