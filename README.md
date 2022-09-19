@@ -21,9 +21,24 @@ Pod 'Acorn'
 ## Usage
 ```Swift
 imageView.setImage(with: url)
+```
+<br/>
+
+- Placeholder
+```Swift
 imageView.setImage(with: url, placeholder: UIImage(named: "placeholderImage")
 ```
+<br/>
 
+- Configuration<br/> 
+  - maximumMemoryBytes
+  - maximumDiskBytes
+  - expiration: seconds, days, date
+```Swift
+AcornManager.shared.configureCache(maximumMemoryBytes: 10485760, 
+                                   maximumDiskBytes: 10485760, 
+                                   expiration: .days(7))
+```
 
 ## Author
 So Yeong Jeon,  jsu3417@gmail.com

@@ -10,7 +10,11 @@ import Foundation
 public class MemoryCache {
     private let cache = NSCache<NSString, CachedImage>()
     
-    init(maximumMemoryBytes: Int) {
+    init() {
+        cache.totalCostLimit = CacheConstants.maximumMemoryBytes
+    }
+    
+    func configure(maximumMemoryBytes: Int) {
         cache.totalCostLimit = maximumMemoryBytes
     }
 

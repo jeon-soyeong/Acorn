@@ -11,27 +11,30 @@ public class DiskCache {
     private var fileDirectoryURL: URL? {
         return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("cache")
     }
-    private var expiration: CacheExpiration
-    private(set) var maximumDiskBytes: Int
+    private(set) var maximumDiskBytes: Int = CacheConstants.maximumDiskBytes
+    private var expiration: CacheExpiration = .days(10)
 
-    init(maximumDiskBytes: Int, expiration: CacheExpiration) {
-        self.maximumDiskBytes = maximumDiskBytes
-        self.expiration = expiration
-        createFileDirectory()
+    init() {
+        self.createFileDirectory()
     }
 }
 
 // MARK: public
 public extension DiskCache {
+    func configure(maximumDiskBytes: Int, expiration: CacheExpiration) {
+        self.maximumDiskBytes = maximumDiskBytes
+        self.expiration = expiration
+    }
+    
     @discardableResult
     func read(with key: String) -> CachedImage? {
         guard let fileURL = getFileURL(key: key) else {
-            debugPrint(ImageCacheError.invalidFileURL.description)
+            debugPrint(AcornError.invalidFileURL.description)
             return nil
         }
         
         guard let imageData = try? Data(contentsOf: fileURL) else {
-            debugPrint(ImageCacheError.failedReadDataFromDisk.description)
+            debugPrint(AcornError.failedReadDataFromDisk.description)
             return nil
         }
         hit(with: fileURL)
@@ -40,7 +43,7 @@ public extension DiskCache {
 
     func save(data: CachedImage, with key: String) {
         guard let fileURL = getFileURL(key: key) else {
-            debugPrint(ImageCacheError.invalidFileURL.description)
+            debugPrint(AcornError.invalidFileURL.description)
             return
         }
         do {
@@ -65,17 +68,17 @@ public extension DiskCache {
 
     func getAllFileURLs(key: [URLResourceKey]) throws -> [URL] {
         guard let fileDirectoryURL = self.fileDirectoryURL else {
-            throw ImageCacheError.invalidFileDirectoryURL
+            throw AcornError.invalidFileDirectoryURL
         }
     
         guard let directoryEnumerator = FileManager.default.enumerator(at: fileDirectoryURL,
                                                                        includingPropertiesForKeys: key,
                                                                        options: .skipsHiddenFiles) else {
-            throw ImageCacheError.failedCreateFileEnumerator
+            throw AcornError.failedCreateFileEnumerator
         }
 
         guard let urls = directoryEnumerator.allObjects as? [URL] else {
-            throw ImageCacheError.invalidFileEnumeratorContents
+            throw AcornError.invalidFileEnumeratorContents
         }
         return urls
     }
@@ -84,7 +87,7 @@ public extension DiskCache {
         do {
             let attributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
             guard let modificationDate = attributes[.modificationDate] as? Date else {
-                throw ImageCacheError.failedGetFileModificationDate
+                throw AcornError.failedGetFileModificationDate
             }
             
             return modificationDate
@@ -112,7 +115,7 @@ public extension DiskCache {
             try removeExpiredCache()
             try removeOverSizeCache()
         } catch {
-            if let error = error as? ImageCacheError {
+            if let error = error as? AcornError {
                 debugPrint(error.description)
             } else {
                 debugPrint(error.localizedDescription)
@@ -161,7 +164,7 @@ public extension DiskCache {
 private extension DiskCache {
     func createFileDirectory() {
         guard let fileDirectoryURL = self.fileDirectoryURL else {
-            debugPrint(ImageCacheError.invalidFileDirectoryURL.description)
+            debugPrint(AcornError.invalidFileDirectoryURL.description)
             return
         }
         if FileManager.default.fileExists(atPath: fileDirectoryURL.path) { return }
@@ -172,11 +175,11 @@ private extension DiskCache {
 
     func getFileURL(key: String) -> URL? {
         guard let fileName = key.components(separatedBy: "/").last else {
-            debugPrint(ImageCacheError.invalidFileName.description)
+            debugPrint(AcornError.invalidFileName.description)
             return nil
         }
         guard let fileDirectoryURL = self.fileDirectoryURL else {
-            debugPrint(ImageCacheError.invalidFileDirectoryURL.description)
+            debugPrint(AcornError.invalidFileDirectoryURL.description)
             return nil
         }
     
@@ -208,7 +211,7 @@ private extension DiskCache {
             let resourceValuesForRhs = try $1.resourceValues(forKeys: keys)
             guard let contentModificationDateForLhs = resourceValuesForLhs.contentModificationDate,
                   let contentModificationDateForRhs = resourceValuesForRhs.contentModificationDate else {
-                      throw ImageCacheError.failedSortedArray
+                      throw AcornError.failedSortedArray
                   }
             return contentModificationDateForLhs > contentModificationDateForRhs
         })
