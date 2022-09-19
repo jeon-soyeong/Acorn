@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B619B8928CED6F700FA1D75 /* ImageCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8828CED6F700FA1D75 /* ImageCacheError.swift */; };
+		9B619B8928CED6F700FA1D75 /* AcornError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8828CED6F700FA1D75 /* AcornError.swift */; };
 		9B619B8B28CED71100FA1D75 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8A28CED71100FA1D75 /* MemoryCache.swift */; };
 		9B619B8D28CED72500FA1D75 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8C28CED72500FA1D75 /* DiskCache.swift */; };
 		9B619B9328D06B0A00FA1D75 /* CacheConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9228D06B0A00FA1D75 /* CacheConstants.swift */; };
@@ -17,7 +17,7 @@
 		9B623C8C28D2F073002D7D4F /* AcornManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC3828CA301E005ED247 /* AcornManager.swift */; };
 		9B623C8D28D2F077002D7D4F /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8C28CED72500FA1D75 /* DiskCache.swift */; };
 		9B623C8E28D2F07C002D7D4F /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8A28CED71100FA1D75 /* MemoryCache.swift */; };
-		9B623C8F28D2F081002D7D4F /* ImageCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8828CED6F700FA1D75 /* ImageCacheError.swift */; };
+		9B623C8F28D2F081002D7D4F /* AcornError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B8828CED6F700FA1D75 /* AcornError.swift */; };
 		9B623C9028D2F083002D7D4F /* CacheExpiration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9628D0929100FA1D75 /* CacheExpiration.swift */; };
 		9B623C9128D2F085002D7D4F /* CacheConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B619B9228D06B0A00FA1D75 /* CacheConstants.swift */; };
 		9B623C9228D2F088002D7D4F /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B71AC4328CB6764005ED247 /* CachedImage.swift */; };
@@ -49,7 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9B619B8828CED6F700FA1D75 /* ImageCacheError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheError.swift; sourceTree = "<group>"; };
+		9B619B8828CED6F700FA1D75 /* AcornError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcornError.swift; sourceTree = "<group>"; };
 		9B619B8A28CED71100FA1D75 /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		9B619B8C28CED72500FA1D75 /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		9B619B9228D06B0A00FA1D75 /* CacheConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheConstants.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 				9B71AC4328CB6764005ED247 /* CachedImage.swift */,
 				9B619B9228D06B0A00FA1D75 /* CacheConstants.swift */,
 				9B619B9628D0929100FA1D75 /* CacheExpiration.swift */,
-				9B619B8828CED6F700FA1D75 /* ImageCacheError.swift */,
+				9B619B8828CED6F700FA1D75 /* AcornError.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -288,7 +288,7 @@
 				9B623C5F28D19E43002D7D4F /* DebugPrint.swift in Sources */,
 				9B619B8D28CED72500FA1D75 /* DiskCache.swift in Sources */,
 				9B71AC2228CA2E86005ED247 /* Acorn.docc in Sources */,
-				9B619B8928CED6F700FA1D75 /* ImageCacheError.swift in Sources */,
+				9B619B8928CED6F700FA1D75 /* AcornError.swift in Sources */,
 				9B619B9328D06B0A00FA1D75 /* CacheConstants.swift in Sources */,
 				9B71AC4228CB3F66005ED247 /* UIButton+Extension.swift in Sources */,
 			);
@@ -300,7 +300,7 @@
 			files = (
 				9B623C8C28D2F073002D7D4F /* AcornManager.swift in Sources */,
 				9B623C8E28D2F07C002D7D4F /* MemoryCache.swift in Sources */,
-				9B623C8F28D2F081002D7D4F /* ImageCacheError.swift in Sources */,
+				9B623C8F28D2F081002D7D4F /* AcornError.swift in Sources */,
 				9B623C9528D2F09A002D7D4F /* UIButton+Extension.swift in Sources */,
 				9B623C9128D2F085002D7D4F /* CacheConstants.swift in Sources */,
 				9B623C9028D2F083002D7D4F /* CacheExpiration.swift in Sources */,

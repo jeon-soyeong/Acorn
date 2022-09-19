@@ -75,7 +75,7 @@ public extension AcornManager {
     func downloadImageData(key: String, completionHandler: @escaping (CachedImage?) -> Void) -> URLSessionDataTask? {
         let dataTask = downloadImageData(url: key) { downloadImageData in
            guard let downloadImageData = downloadImageData else {
-               debugPrint(ImageCacheError.failedDownloadImageData.description)
+               debugPrint(AcornError.failedDownloadImageData.description)
                return
            }
            completionHandler(downloadImageData)
@@ -99,7 +99,7 @@ private extension AcornManager {
         if let imageUrl = URL(string: url) {
             dataTask = URLSession.shared.dataTask(with: imageUrl) { [weak self] (data, response, error) in
                 guard let data = data else {
-                    debugPrint(ImageCacheError.failedData.description)
+                    debugPrint(AcornError.failedData.description)
                     return
                 }
                 self?.saveMemoryCachedImageData(data: CachedImage(imageData: data), with: url)

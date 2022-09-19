@@ -146,7 +146,7 @@ class AcornTests: XCTestCase {
                 expectation.fulfill()
             }
         } catch {
-            if let error = error as? ImageCacheError {
+            if let error = error as? AcornError {
                 debugPrint(error.description)
             } else {
                 debugPrint(error.localizedDescription)

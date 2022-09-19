@@ -1,5 +1,5 @@
 //
-//  ImageCacheError.swift
+//  AcornError.swift
 //  Acorn
 //
 //  Created by 전소영 on 2022/09/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ImageCacheError: Error {
+public enum AcornError: Error {
     case invalidFileName
     case invalidFileDirectoryURL
     case invalidFileURL
