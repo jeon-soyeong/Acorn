@@ -9,14 +9,14 @@ import XCTest
 @testable import Acorn
 
 class AcornTests: XCTestCase {
-    let imageCacheManager = ImageCacheManager.shared
+    let acornManager = AcornManager.shared
     let testString = "testCacheData!!!.png"
     var cacheData: CachedImage?
     var diskCache: DiskCache?
 
     override func setUpWithError() throws {
-        ImageCacheManager.shared.configureCache(maximumDiskBytes: 10, expiration: .seconds(1))
-        diskCache = imageCacheManager.diskCache
+        acornManager.configureCache(maximumDiskBytes: 10, expiration: .seconds(1))
+        diskCache = acornManager.diskCache
         diskCache?.clearDiskCache()
 
         guard let testData = """
@@ -28,14 +28,14 @@ class AcornTests: XCTestCase {
         cacheData = CachedImage(imageData: testData)
     }
 
-    func test_givenImageCacheManager_WhenSaveAndReadMemoryCache_ThenSuccess() throws {
+    func test_givenAcornManager_WhenSaveAndReadMemoryCache_ThenSuccess() throws {
         guard let cacheData = cacheData else {
             XCTFail()
             return
         }
-        imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
+        acornManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
 
-        guard let result = imageCacheManager.readMemoryCachedImageData(with: "dataKey") else {
+        guard let result = acornManager.readMemoryCachedImageData(with: "dataKey") else {
             XCTFail()
             return
         }
@@ -45,34 +45,34 @@ class AcornTests: XCTestCase {
         XCTAssert(resultString == testString)
     }
 
-    func test_givenImageCacheManager_WhenClearMemoryCache_ThenSuccess() throws {
+    func test_givenAcornManager_WhenClearMemoryCache_ThenSuccess() throws {
         guard let cacheData = cacheData else {
             XCTFail()
             return
         }
-        imageCacheManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
+        acornManager.saveMemoryCachedImageData(data: cacheData, with: "dataKey")
 
-        guard let result = imageCacheManager.readMemoryCachedImageData(with: "dataKey") else {
+        guard let result = acornManager.readMemoryCachedImageData(with: "dataKey") else {
             XCTFail()
             return
         }
         XCTAssert(result.imageData.count == 20)
 
-        imageCacheManager.clearMemoryCache()
-        if let dataCount = imageCacheManager.readMemoryCachedImageData(with: "dataKey")?.imageData.count {
+        acornManager.clearMemoryCache()
+        if let dataCount = acornManager.readMemoryCachedImageData(with: "dataKey")?.imageData.count {
             XCTAssertEqual(dataCount, 0)
         }
-        XCTAssertNil(imageCacheManager.readMemoryCachedImageData(with: "dataKey")?.imageData)
+        XCTAssertNil(acornManager.readMemoryCachedImageData(with: "dataKey")?.imageData)
     }
 
-    func test_givenImageCacheManager_WhenSaveAndReadDiskCache_ThenSuccess() throws {
+    func test_givenAcornManager_WhenSaveAndReadDiskCache_ThenSuccess() throws {
         guard let cacheData = cacheData else {
             XCTFail()
             return
         }
-        imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+        acornManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
 
-        guard let result = imageCacheManager.readDiskCachedImageData(with: "dataKey") else {
+        guard let result = acornManager.readDiskCachedImageData(with: "dataKey") else {
             XCTFail()
             return
         }
@@ -82,24 +82,24 @@ class AcornTests: XCTestCase {
         XCTAssert(resultString == testString)
     }
 
-    func test_givenImageCacheManager_WhenClearDiskCache_ThenSuccess() throws {
+    func test_givenAcornManager_WhenClearDiskCache_ThenSuccess() throws {
         guard let cacheData = cacheData else {
             XCTFail()
             return
         }
-        imageCacheManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
+        acornManager.saveDiskCachedImageData(data: cacheData, with: "dataKey")
 
-        guard let result = imageCacheManager.readDiskCachedImageData(with: "dataKey") else {
+        guard let result = acornManager.readDiskCachedImageData(with: "dataKey") else {
             XCTFail()
             return
         }
         XCTAssert(result.imageData.count == 20)
 
-        imageCacheManager.clearDiskCache()
-        if let dataCount = imageCacheManager.readDiskCachedImageData(with: "dataKey")?.imageData.count {
+        acornManager.clearDiskCache()
+        if let dataCount = acornManager.readDiskCachedImageData(with: "dataKey")?.imageData.count {
             XCTAssertEqual(dataCount, 0)
         }
-        XCTAssertNil(imageCacheManager.readDiskCachedImageData(with: "dataKey")?.imageData)
+        XCTAssertNil(acornManager.readDiskCachedImageData(with: "dataKey")?.imageData)
     }
 
     func test_givenDiskCache_WhenGetTotalDiskCacheSize_ThenSuccess() throws {
@@ -146,7 +146,7 @@ class AcornTests: XCTestCase {
                 expectation.fulfill()
             }
         } catch {
-            if let error = error as? ImageCacheError {
+            if let error = error as? AcornError {
                 debugPrint(error.description)
             } else {
                 debugPrint(error.localizedDescription)
